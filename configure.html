@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <title>GottaGo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style type="text/css">
+    body {
+		font-family:sans-serif;
+    }
+    #status_indicator {
+		display:none;
+		background: #eee;
+		border: 1px solid #666;
+		padding:0.25em;
+		margin: 1em;
+	}
+	#status_indicator.error {
+		background: #EB4747;
+	}
+	#status_indicator.off {}
+	#status_indicator.go {
+		background:lightgreen;
+	}
+	#status_indicator.no_go {
+		background:lightcoral;
+	}
+    </style>
+  </head>
+  <body>
+	<!--
+	This page is loaded and shown whenever the user clicks the toolbar icon.
+	It is not active in the background.
+	-->
+	<form action="">
+		<label>
+			Schlüssel
+			<input type="text" name="device_identifier">
+		</label>
+		<button type="submit">Status anfragen</button>
+	</form>
+	<div id="status_indicator"></div>
+	<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="configure.js"></script>
+  </body>
+</html>
