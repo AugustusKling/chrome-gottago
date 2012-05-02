@@ -37,17 +37,17 @@ function GottaGo(query_service){
 	var self = jQuery(this);
     var timeouts = new Scheduler();
     var error_messages = {
-        no_api: "Statusinformationen sind derzeit nicht verfügbar. Bitte zu einem späteren Zeitpunkt erneut versuchen.",
-        not_configured: "Der eingegebene Schlüssel wurde noch nicht konfiguriert. Bitte auf der Website einloggen und Schlüssel konfigurieren.",
-        no_data: "Es sind keine Daten für den angegebenen Schlüssel verfügbar."
+        no_api: "Statusinformation currently not available. Please try again later.",
+        not_configured: "This key is not yet configured. Please go to gottago.ch and create a key.",
+        no_data: "There are no data available for this key."
     };
-	
+
 	// TODO Unused handler code that will be brought back to life when web service is back for testing
     var status_handlers = {
         off: function handle_off(json){
             if(!isNaN(json.status_changes.go)) {
                 var minutesUntilGo = Math.round(json.status_changes.go/60);
-                
+
                 // Always show correct relative time
                 if(minutesUntilGo>1){
                     var updatedStatusChanges = $.extend({}, json.status_changes, {go:json.status_changes.go-60});
@@ -66,12 +66,12 @@ function GottaGo(query_service){
     this.parseResponse = function parse(json){
         timeouts.clearAll();
         if(json.constructor!==({}).constructor){
-			self.trigger('error', "Falsche Daten vom Server erhalten.");
+            self.trigger('error', "Wrong data from the server");
             return;
         }
 
         if(json.error){
-			self.trigger('error', error_messages[json.error] || "Unbekannter Fehler")
+            self.trigger('error', error_messages[json.error] || "Unknown error")
         } else {
             // Render current status
             self.trigger(json.status, json);
@@ -92,18 +92,18 @@ function GottaGo(query_service){
     };
 
     this.handleRequestError = function(){
-		self.trigger('error', "Server nicht erreichbar.");
+        self.trigger('error', "Server not reachable");
 
         timeouts.clearAll();
         // Try again in 1min and hope service is up again
         timeouts.schedule(query_service, 60*1000);
     };
-	
+
 	/**
 	 * Queries the server for the status
 	 */
 	this.query = query_service;
-	
+
 	/**
 	 * Registers an event handler for status changes or error notifications
 	 * @param {String} event Name of event: go, no_go, off, error
