@@ -1,7 +1,7 @@
 // Set up application API and web service end-point
 var gottaGo = new GottaGo(function requery(){
 	$.ajax({
-		url: 'http://busstop.ch.azdev.nine.ch/gottago_status/' + encodeURIComponent(localStorage.device_identifier),
+		url: 'http://gottago.ch/gottago_status/' + encodeURIComponent(localStorage.gottago_key),
 		dataType: 'json'
 	}).done(gottaGo.parseResponse).fail(gottaGo.handleRequestError);
 });
@@ -26,7 +26,7 @@ gottaGo.bind('go', function(){
 });
 
 // If the user configured the device already request status, otherwise show hint how to configure
-if(localStorage.device_identifier){
+if(localStorage.gottago_key){
 	gottaGo.query();
 } else {
 	var notification = webkitNotifications.createNotification(
@@ -35,7 +35,7 @@ if(localStorage.device_identifier){
 		'Please click the icon in the toolbar to configure GottaGo.'  // notification body text
 	);
 	notification.show();
-	
+
 	setTimeout(function(){
 		notification.cancel();
 	}, 10e3);

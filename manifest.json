@@ -1,15 +1,15 @@
 {
   "name": "GottaGo",
-  "version": "1.0",
+  "version": "1.0.2",
   "manifest_version": 2,
-  "description": "Notifies about PSV so that these can be catched just in time.",
+  "description": "Get the status of your GottaGo directly in your Browser",
   "icons": {
 	"16": "gottago16.png",
 	"48": "gottago48.png",
 	"128": "gottago128.png"
   },
   "browser_action": {
-    "default_icon": "configure.png",
+    "default_icon": "gottago16.png",
     "default_popup": "configure.html"
   },
   "background": {"page": "background.html"},
